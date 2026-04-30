@@ -1,0 +1,45 @@
+{% extends 'calificaciones/base.html' %}
+
+{% block title %}Panel Superadmin{% endblock %}
+
+{% block content %}
+<div class="hero-shell p-4 p-lg-5 mb-4">
+    <h1 class="display-6 fw-bold mb-2">Panel de superadministracion</h1>
+    <p class="mb-0">Supervisa el sistema, consulta indicadores globales y accede a todas las funciones del modulo.</p>
+</div>
+
+<div class="row g-4 mb-4">
+    <div class="col-md-3"><div class="card info-card h-100"><div class="card-body"><p class="text-muted mb-1">Calificaciones</p><h2 class="display-6 mb-0">{{ total_calificaciones }}</h2></div></div></div>
+    <div class="col-md-3"><div class="card info-card h-100"><div class="card-body"><p class="text-muted mb-1">Estudiantes</p><h2 class="display-6 mb-0">{{ total_estudiantes }}</h2></div></div></div>
+    <div class="col-md-3"><div class="card info-card h-100"><div class="card-body"><p class="text-muted mb-1">Profesores</p><h2 class="display-6 mb-0">{{ total_profesores }}</h2></div></div></div>
+    <div class="col-md-3"><div class="card info-card h-100"><div class="card-body"><p class="text-muted mb-1">Promedio general</p><h2 class="display-6 mb-0">{% if promedio_general %}{{ promedio_general|floatformat:2 }}{% else %}0.00{% endif %}</h2></div></div></div>
+</div>
+
+<div class="card info-card">
+    <div class="card-body p-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2 class="h4 mb-0">Ultimos registros</h2>
+            <div class="d-flex gap-2">
+                <a href="{% url 'crear' %}" class="btn btn-success">Nueva calificacion</a>
+                <a href="{% url 'listar' %}" class="btn btn-outline-primary">Ver listado</a>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table align-middle mb-0">
+                <thead><tr><th>Estudiante</th><th>Asignatura</th><th>Promedio</th></tr></thead>
+                <tbody>
+                    {% for calificacion in calificaciones_recientes %}
+                    <tr>
+                        <td>{{ calificacion.nombre_estudiante }}</td>
+                        <td>{{ calificacion.asignatura }}</td>
+                        <td>{{ calificacion.promedio|floatformat:2 }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr><td colspan="3">Sin registros.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
