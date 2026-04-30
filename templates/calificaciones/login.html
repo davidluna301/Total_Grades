@@ -1,0 +1,43 @@
+{% extends 'calificaciones/base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center align-items-center g-4">
+    <div class="col-lg-5">
+        <div class="card info-card">
+            <div class="card-body p-4 p-lg-5">
+                <h1 class="h3 mb-3">Acceso al campus</h1>
+                <p class="text-muted mb-4">Usa tus credenciales para abrir la interfaz de tu rol.</p>
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.non_field_errors }}
+                    <div class="mb-3">
+                        {{ form.username.label_tag }}
+                        {{ form.username }}
+                        {{ form.username.errors }}
+                    </div>
+                    <div class="mb-4">
+                        {{ form.password.label_tag }}
+                        {{ form.password }}
+                        {{ form.password.errors }}
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Entrar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-5">
+        <div class="card info-card h-100">
+            <div class="card-body p-4 p-lg-5">
+                <h2 class="h4 mb-3">Rutas despues del login</h2>
+                <ul class="ps-3 mb-0">
+                    <li>Superadmin: panel de control, metricas globales y CRUD completo.</li>
+                    <li>Profesor: gestion de notas, consulta general y seguimiento academico.</li>
+                    <li>Estudiante: vista personalizada de sus materias y promedio.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
