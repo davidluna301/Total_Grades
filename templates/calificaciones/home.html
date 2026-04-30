@@ -1,0 +1,58 @@
+{% extends 'calificaciones/base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<section class="hero-shell p-4 p-lg-5 mb-5">
+    <div class="row align-items-center g-4">
+        <div class="col-lg-7">
+            <span class="badge rounded-pill text-bg-warning mb-3">Landing page del campus academico</span>
+            <h1 class="display-5 fw-bold mb-3">Control de evaluaciones con acceso seguro por tipo de usuario</h1>
+            <p class="lead mb-4">Ingresa como superadmin, profesor o estudiante para ver una interfaz adaptada a tu rol y acceder solo a las funciones que te corresponden.</p>
+            <div class="d-flex flex-wrap gap-3">
+                <a href="{% url 'login' %}" class="btn btn-warning btn-lg">Ingresar al sistema</a>
+                <a href="{% url 'home' %}#roles" class="btn btn-outline-light btn-lg">Ver roles</a>
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <div class="card info-card">
+                <div class="card-body p-4">
+                    <h2 class="h4 mb-3">Que encontraras</h2>
+                    <ul class="mb-0 ps-3">
+                        <li>Panel ejecutivo para superadministracion.</li>
+                        <li>Espacio de gestion para profesores.</li>
+                        <li>Consulta personalizada de notas para estudiantes.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="roles" class="row g-4">
+    <div class="col-md-4">
+        <div class="card info-card h-100">
+            <div class="card-body p-4">
+                <h2 class="h4">Superadmin</h2>
+                <p class="text-muted">Administra el ecosistema completo, consulta metricas globales, registra, edita y elimina calificaciones.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card info-card h-100">
+            <div class="card-body p-4">
+                <h2 class="h4">Profesor</h2>
+                <p class="text-muted">Crea y actualiza notas, consulta el promedio general y monitorea el avance de las asignaturas.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card info-card h-100">
+            <div class="card-body p-4">
+                <h2 class="h4">Estudiante</h2>
+                <p class="text-muted">Accede a un panel personal con tus calificaciones y tu promedio individual calculado automaticamente.</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
