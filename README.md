@@ -4,6 +4,8 @@
 	<img src="./Total_Grades_logo.png" alt="Total Grades logo" width="220">
 </p>
 
+<https://total-grades.onrender.com>
+
 Aplicacion web desarrollada con Django para gestionar calificaciones de estudiantes con autenticacion por roles, paneles diferenciados y operaciones CRUD sobre notas.
 
 ## Descripcion general
@@ -175,6 +177,8 @@ La entidad principal es `Calificacion`, que almacena:
 El promedio se calcula automaticamente al guardar el registro.
 
 ## Despliegue en Render
+
+<https://total-grades.onrender.com>
 
 El proyecto esta preparado para usar PostgreSQL en Render mediante la variable `DATABASE_URL`.
 
