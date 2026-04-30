@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: total-grades
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt; python manage.py collectstatic --no-input; python manage.py migrate
+    startCommand: gunicorn evaluaciones_total_grades_estudiantes.wsgi:application
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.6
+      - key: DJANGO_DEBUG
+        value: "False"
+      - key: DJANGO_SECRET_KEY
+        generateValue: true
+      - key: DJANGO_ALLOWED_HOSTS
+        value: total-grades.onrender.com
+      - key: DJANGO_CSRF_TRUSTED_ORIGINS
+        value: https://total-grades.onrender.com
+      - key: DATABASE_URL
+        fromDatabase:
+          name: total-grades-db
+          property: connectionString
+
+databases:
+  - name: total-grades-db
+    databaseName: total_grades
+    user: total_grades_user

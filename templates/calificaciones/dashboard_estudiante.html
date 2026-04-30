@@ -1,0 +1,42 @@
+{% extends 'calificaciones/base.html' %}
+
+{% block title %}Panel Estudiante{% endblock %}
+
+{% block content %}
+<div class="hero-shell p-4 p-lg-5 mb-4">
+    <h1 class="display-6 fw-bold mb-2">Panel del estudiante</h1>
+    <p class="mb-0">Consulta tus materias registradas, revisa cada nota y monitorea tu promedio personal.</p>
+</div>
+
+<div class="row g-4 mb-4">
+    <div class="col-md-6"><div class="card info-card h-100"><div class="card-body"><p class="text-muted mb-1">Materias registradas</p><h2 class="display-6 mb-0">{{ total_materias }}</h2></div></div></div>
+    <div class="col-md-6"><div class="card info-card h-100"><div class="card-body"><p class="text-muted mb-1">Promedio personal</p><h2 class="display-6 mb-0">{% if promedio_personal %}{{ promedio_personal|floatformat:2 }}{% else %}Sin datos{% endif %}</h2></div></div></div>
+</div>
+
+<div class="card info-card">
+    <div class="card-body p-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2 class="h4 mb-0">Mis calificaciones</h2>
+            <a href="{% url 'listar' %}" class="btn btn-outline-primary">Ver detalle completo</a>
+        </div>
+        <div class="table-responsive">
+            <table class="table align-middle mb-0">
+                <thead><tr><th>Asignatura</th><th>Nota 1</th><th>Nota 2</th><th>Nota 3</th><th>Promedio</th></tr></thead>
+                <tbody>
+                    {% for calificacion in calificaciones %}
+                    <tr>
+                        <td>{{ calificacion.asignatura }}</td>
+                        <td>{{ calificacion.nota1|floatformat:2 }}</td>
+                        <td>{{ calificacion.nota2|floatformat:2 }}</td>
+                        <td>{{ calificacion.nota3|floatformat:2 }}</td>
+                        <td>{{ calificacion.promedio|floatformat:2 }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr><td colspan="5">No tienes calificaciones asociadas a tu usuario.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

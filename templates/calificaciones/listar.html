@@ -1,0 +1,89 @@
+{% extends 'calificaciones/base.html' %}
+
+{% block title %}Listado de Calificaciones{% endblock %}
+
+{% block content %}
+<div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
+    <div>
+        <h1 class="h3 mb-1">{% if role_name == 'estudiante' %}Mis calificaciones{% else %}Calificaciones registradas{% endif %}</h1>
+        <p class="text-muted mb-0">
+            {% if role_name == 'superadmin' %}
+                Administra el modulo completo de calificaciones, incluyendo eliminacion de registros.
+            {% elif role_name == 'profesor' %}
+                Gestiona el rendimiento academico, registra notas y actualiza evaluaciones.
+            {% else %}
+                Consulta tu historial academico y revisa el promedio acumulado.
+            {% endif %}
+        </p>
+    </div>
+    {% if can_create %}
+    <a href="{% url 'crear' %}" class="btn btn-success">Registrar nueva calificacion</a>
+    {% endif %}
+</div>
+
+{% if calificaciones %}
+<div class="card shadow-sm border-0">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-primary">
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Identificacion</th>
+                        <th>Asignatura</th>
+                        <th>Nota 1</th>
+                        <th>Nota 2</th>
+                        <th>Nota 3</th>
+                        <th>Promedio</th>
+                        {% if can_edit or can_delete %}
+                        <th>Acciones</th>
+                        {% endif %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for calificacion in calificaciones %}
+                    <tr>
+                        <td>{{ calificacion.nombre_estudiante }}</td>
+                        <td>{{ calificacion.identificacion }}</td>
+                        <td>{{ calificacion.asignatura }}</td>
+                        <td>{{ calificacion.nota1|floatformat:2 }}</td>
+                        <td>{{ calificacion.nota2|floatformat:2 }}</td>
+                        <td>{{ calificacion.nota3|floatformat:2 }}</td>
+                        <td><span class="badge text-bg-primary">{{ calificacion.promedio|floatformat:2 }}</span></td>
+                        {% if can_edit or can_delete %}
+                        <td>
+                            {% if can_edit %}
+                            <a href="{% url 'editar' calificacion.pk %}" class="btn btn-warning btn-sm">Editar</a>
+                            {% endif %}
+                            {% if can_delete %}
+                            <a href="{% url 'eliminar' calificacion.pk %}" class="btn btn-danger btn-sm">Eliminar</a>
+                            {% endif %}
+                        </td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card-footer bg-white d-flex justify-content-between align-items-center">
+        <span class="fw-semibold">Promedio general</span>
+        <span class="badge rounded-pill text-bg-dark fs-6">
+            {% if promedio_general %}
+                {{ promedio_general|floatformat:2 }}
+            {% else %}
+                Sin datos
+            {% endif %}
+        </span>
+    </div>
+</div>
+{% else %}
+<div class="alert alert-info shadow-sm" role="alert">
+    {% if role_name == 'estudiante' %}
+        Aun no hay calificaciones asociadas a tu usuario.
+    {% else %}
+        No hay calificaciones registradas por el momento. Usa el boton de crear para agregar la primera.
+    {% endif %}
+</div>
+{% endif %}
+{% endblock %}
