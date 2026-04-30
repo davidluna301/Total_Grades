@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+*.py[cod]
+*.sqlite3
+db.sqlite3
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+usuarios_y_contrasenas.txt
